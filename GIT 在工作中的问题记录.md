@@ -186,33 +186,33 @@ commit是可以的，但是这之后我又把它merge到了develop分支这
 
 4. git remote add upstream git@github.com:fe/github-flow.git
    		|
-   		| // 设置一个名字为 upstream 的上游地址，也就是我们项目主仓库的地址
-   		|
+      		| // 设置一个名字为 upstream 的上游地址，也就是我们项目主仓库的地址
+      		|
 
 5. git remote -v 
    		| //查看当前远端仓库的地址
-   		| origin  git@github.com:xxx/github-flow.git (fetch)
-   		| origin  git@github.com:xxx/github-flow.git (push)
-   		| upstream    git@github.com:fe/github-flow.git (fetch)
-   		| upstream    git@github.com:fe/github-flow.git (push)
-   		|	
+      		| origin  git@github.com:xxx/github-flow.git (fetch)
+      		| origin  git@github.com:xxx/github-flow.git (push)
+      		| upstream    git@github.com:fe/github-flow.git (fetch)
+      		| upstream    git@github.com:fe/github-flow.git (push)
+      		|	
 
 6. git fetch upstream 
    		|
-    		| //将上游主仓库中master分支的代码同步到本地
-   		|
+        		| //将上游主仓库中master分支的代码同步到本地
+      		|
 
 7. git checkout master 切换到本地的master分支
    		|
-   		|
+      		|
 
 8.  git merge upstream/master 把上游仓库的master分支合并到本地的master分支
-   		|
-   		|
+      		|
+      		|
 
 9. git push origin master 本地仓库master分支推送到远端（origin）仓库的master分支
    		|
-   		|
+      		|
 
 10. git checkout -b feat/feedback develop 基于develop 分支，新建一个分支出来
     		|
@@ -309,5 +309,6 @@ commit是可以的，但是这之后我又把它merge到了develop分支这
 	git grep -e '#define' --and -e SORT_DIRENT
 	git gc
 	git fsck
-		
-		
+
+
+
