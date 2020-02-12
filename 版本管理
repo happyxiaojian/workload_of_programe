@@ -75,6 +75,8 @@ git tag -a <tag> <commit-hash>
 
 ### 版本识别与冲突预警
 
+### 公共模块如何处理
+
 #### RESTful 服务的版本定义
 
 #### 然而，我们更多用的是 GRPC…
