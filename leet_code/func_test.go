@@ -2,7 +2,6 @@ package leet_code
 
 import (
 	"fmt"
-	"github.com/davecgh/go-spew/spew"
 	"reflect"
 	"sort"
 	"testing"
@@ -17,8 +16,8 @@ func Test1001(t *testing.T){
 	map1["landon"] = empthStruct
 
 	a, ok := map1["a"]
-	spew.Dump(ok)
-	spew.Dump(a)
+	t.Log(ok)
+	t.Log(a)
 }
 
 
@@ -226,5 +225,20 @@ func Test10005(t *testing.T) {
 	if f, ok := rt.FieldByName("Age"); ok {
 		fmt.Printf("\n\nfield:%+v\tvalue:%+v\n", f.Name, rv.FieldByName("Age"))
 	}
+}
+
+
+//===========================================================
+// 	//输入: nums = [1,3,-1,-3,5,3,6,7], 和 k = 3
+//	//输出: [3,3,5,5,6,7]
+
+func TestMaxSliceWindow(t *testing.T){
+	//nums := []int{1,3,-1,-3,5,3,6,7}
+
+	nums := []int{1, -1}
+
+	k := 2
+	slice1 := maxSlidingWindow(nums, k)
+	t.Log(slice1)
 }
 
