@@ -69,5 +69,21 @@ func (c *CircleQueue)DeQueue()bool{
 	return true
 }
 
+/** Get the front item from the queue. */
+func (c *CircleQueue) Front() int {
+	if c.IsEmpty(){
+		return 0
+	}
+	return c.Queue[c.Head]
+}
+
+/** Get the last item from the queue. */
+func (c *CircleQueue) Rear() int {
+	if c.IsEmpty(){
+		return 0
+	}
+	return c.Queue[c.Tail]
+}
+
 
 
