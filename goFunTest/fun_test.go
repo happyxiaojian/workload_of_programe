@@ -60,3 +60,7 @@ func TestFunc(t *testing.T){
 	p.SetFlag(0)
 	p.State.Play()
 }
+
+//================================================
+
+
