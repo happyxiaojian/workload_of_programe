@@ -67,4 +67,13 @@ func TestTimeParse(t *testing.T){
 }
 
 
+func TestTimeParse02(t *testing.T){
+	tt := "2020-08-02 22:03:29.9999999"
+	tt1, err := time.Parse("2006-01-02 15:04:05", tt)
+	spew.Dump(tt1, err)
+	spew.Dump(tt1.Add(time.Second * 1))
+	spew.Dump(tt1.Truncate(time.Second * 2))
+
+}
+
 

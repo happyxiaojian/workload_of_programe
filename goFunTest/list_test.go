@@ -43,16 +43,16 @@ func (l *List)AddHead(node *ListNode)bool{
 func reverseList(head *ListNode) *ListNode {
 	pre, cur := head, head.Next
 
-	nxt := cur.Next
+ 	nxt := cur.Next
 	pre.Next = nil
 
 	for nxt != nil {
 		cur.Next = pre
 		pre = cur
 		cur = nxt
-		nxt = nxt.Next
+		nxt = cur.Next
 	}
-
+	cur.Next = pre
 	return cur
 }
 
@@ -78,8 +78,7 @@ func TestList(t *testing.T){
 
 	PrintList(list)
 
-	reverseList(list.Head)
+	_ = reverseList(list.Head)
 
 	PrintList(list)
-
 }
