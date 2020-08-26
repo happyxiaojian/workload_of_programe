@@ -59,6 +59,7 @@ func TestTimeParse(t *testing.T){
 	today, local := GetTimeAndLocal()
 	spew.Dump(today)
 	spew.Dump(local)
+
 	otime := time.Date(today.Year(), today.Month()+1, 1, 10, 0, 0, 0, local)
 	ctime := time.Date(today.Year(), today.Month()+1, 1, 20, 45, 0, 0, local)
 

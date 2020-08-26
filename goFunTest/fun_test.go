@@ -62,5 +62,22 @@ func TestFunc(t *testing.T){
 }
 
 //================================================
+func TestEmptySlice(t *testing.T){
+	var arr []int
+
+	fmt.Printf("%#v", arr)
+
+	arr = append(arr, 1)
+	arr = append(arr, 2, 3)
+	arr = append(arr, []int{4, 5, 6}...)
+
+	fmt.Printf("%#v", arr)
+}
+
+func TestEmptyMap(t *testing.T){
+	var tmap map[int]string
+
+	tmap[1] = "a"  // Assignment to entry may panic because of 'nil' map
+}
 
 
