@@ -5,6 +5,7 @@ import (
 	"reflect"
 	"sort"
 	"testing"
+	"time"
 )
 
 
@@ -240,5 +241,71 @@ func TestMaxSliceWindow(t *testing.T){
 	k := 2
 	slice1 := maxSlidingWindow(nums, k)
 	t.Log(slice1)
+}
+
+
+
+func Fibonacci() func() int {
+	a, b := 0, 1
+	return func() int {
+		a, b = b, a+b
+		return a
+	}
+}
+
+
+func TestFibonacci(t *testing.T)  {
+	f := Fibonacci()
+
+	for i := 0; i < 10; i++ {
+		fmt.Printf("Fibonacci: %d\n", f())
+	}
+
+	for i := 0; i < 10; i++ {
+		fmt.Printf("Fibonacci: %d\n", f())
+	}
+}
+
+//==================
+func fib(n int, helper map[int]int)int {
+	if n == 1 || n == 2 {
+		return 1
+	}
+	if v1, ok := helper[n]; ok{
+		return v1
+	}
+	helper[n] = fib(n-1, helper) + fib(n-2, helper)
+	return helper[n]
+}
+
+func fib3(n int, helper map[int]int) int{
+	helper[1], helper[2] = 1, 1
+	for i := 3; i <= n; i++ {
+		helper[i] = helper[i-1] + helper[i-2]
+	}
+	return helper[n]
+}
+
+
+func fib2(n int) int {
+	if n == 1 || n == 2 {
+		return 1
+	}
+	return fib2(n - 1) + fib2(n - 2)
+}
+
+func TestFib(t *testing.T){
+	start := time.Now()
+	helper := map[int]int{}
+	fmt.Println(fib(200, helper))
+	cc := time.Since(start)
+	t.Log(cc)
+
+}
+
+func TestFib2(t *testing.T){
+	start2 := time.Now()
+	fmt.Println(fib2(40))
+	t.Log(time.Since(start2))
 }
 
