@@ -85,7 +85,9 @@ func main() {
 
 	result, err = redisClient.Get(ctx, REDIS_KEY_USER_LIST).Result()
 	checkErr(result, err, "get REDIS_KEY_USER_LIST")
-	userList2 := gjson.Get(result, "")
+	userList2 := &[]User{}
+	json.Unmarshal([]byte(result), userList2)
+	//userList2 := gjson.Get(result, REDIS_KEY_USER_LIST)
 	spew.Dump(userList2)
 
 }

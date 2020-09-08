@@ -266,7 +266,6 @@ func TestFibonacci(t *testing.T)  {
 	}
 }
 
-//==================
 func fib(n int, helper map[int]int)int {
 	if n == 1 || n == 2 {
 		return 1
@@ -309,3 +308,56 @@ func TestFib2(t *testing.T){
 	t.Log(time.Since(start2))
 }
 
+func TestSlice(t *testing.T){
+	arr := []int{4, 3, 2, 1}
+
+	fmt.Println(len(arr))
+
+	arr = append(arr[:1], arr[2:]...)
+
+	fmt.Printf("arr: len: %#v --> %#v\n", len(arr), arr)
+
+
+}
+
+func TestSlice2(t *testing.T){
+	arr := []int{1, 1}
+
+	resp := removeDuplicates2(&arr)
+
+	fmt.Printf("arr: %#v --> %#v\n", resp, arr)
+}
+
+func removeDuplicates2(nums *[]int) int {
+	leng := len(*nums)
+	var n int
+	for i := 0; i < len(*nums) -1; i++ {
+		for j := i + 1; j < len(*nums); j ++ {
+			if (*nums)[i] == (*nums)[j] {
+				*nums = append((*nums)[:j], (*nums)[j+1:]...)
+				n++
+				j--
+			}
+		}
+	}
+	return leng - n
+}
+
+func TestModifySlice(t *testing.T){
+	arr := []int{1, 3, 4}
+
+	modifySlice(arr)
+
+	fmt.Printf("arr: %#v\n addr:%p --> len:%d, cap:%d\n", arr, &arr, len(arr), cap(arr))
+
+}
+
+
+func modifySlice(nums []int){
+	fmt.Printf("inner nums: %p\n", &nums)
+	nums[0] = 1000
+
+	nums = append(nums[:1], nums[2:]...)
+
+	fmt.Printf("inner nums: %#v --> len:%d, cap:%d\n", nums, len(nums), cap(nums))
+}
