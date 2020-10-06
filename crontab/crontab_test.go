@@ -28,15 +28,16 @@ func TestCron(t *testing.T) {
 	c := cron.New()
 
 	//AddFunc
-	spec := "0/8 * * * * *"
-	c.AddFunc(spec, func() {
+	spec := "*/12 * * * * *"
+	spec1 := "0/12 * * * * *"
+	c.AddFunc(spec1, func() {
 		i++
 		log.Println("cron running:", i)
 	})
 
 	//AddJob方法
 	c.AddJob(spec, TestJob{})
-	c.AddJob(spec, Test2Job{})
+	c.AddJob(spec1, Test2Job{})
 
 	//启动计划任务
 	c.Start()

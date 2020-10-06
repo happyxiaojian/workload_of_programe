@@ -1,0 +1,16 @@
+# For a quick start check out our HTTP Requests collection (Tools|HTTP Client|Open HTTP Requests Collection).
+#
+# Following HTTP Request Live Templates are available:
+# * 'gtrp' and 'gtr' create a GET request with or without query parameters;
+# * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
+# * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
+
+####
+GET http://127.0.0.1:8802/bet/v2/user/ltlist
+
+
+###
+GET https://lottery.ustest01.com/bet/v2/user/ltlist
+authorization: ac8d358820d4e3bc770ce604f08e392b
+cookie: pcToken=ac8d358820d4e3bc770ce604f08e392b; origin=https://ustest01.com
+###

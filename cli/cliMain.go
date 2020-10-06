@@ -22,6 +22,6 @@ func main() {
 }
 
 func pri(c *cli.Context) error {
-	fmt.Println("hello world")
+	fmt.Println("hello world1111")
 	return nil
 }

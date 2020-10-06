@@ -1,4 +1,4 @@
-package goFunTest
+package main
 
 
 

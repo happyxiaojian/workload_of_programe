@@ -7,9 +7,12 @@ require (
 	github.com/go-playground/validator/v10 v10.3.0
 	github.com/go-redis/redis/v8 v8.0.0-beta.6
 	github.com/google/gops v0.3.11
+	github.com/imdario/mergo v0.3.11
+	github.com/onsi/ginkgo v1.10.1
 	github.com/robfig/cron v1.2.0
 	github.com/rs/zerolog v1.19.0
 	github.com/spf13/cobra v1.0.0
+	github.com/spf13/viper v1.7.1 // indirect
 	github.com/tidwall/gjson v1.6.0
 	github.com/urfave/cli/v2 v2.2.0
 	github.com/urfave/negroni v1.0.0

@@ -1,7 +1,10 @@
-package goFunTest
+package main
 
 import (
 	"fmt"
+	"github.com/davecgh/go-spew/spew"
+	"github.com/onsi/ginkgo/reporters/stenographer/support/go-colorable"
+	"os"
 	"testing"
 	"time"
 )
@@ -176,6 +179,7 @@ func parseWithLocation(name string, timeStr string) (time.Time, error) {
 		return lt, nil
 	}
 }
+
 func TestTime(t *testing.T) {
 	fmt.Println("0. now: ", time.Now())
 
@@ -206,4 +210,78 @@ func TestTime(t *testing.T) {
 	parseWithLocation("America/Cordoba", str)
 	parseWithLocation("Asia/Shanghai", str)
 	parseWithLocation("Asia/Beijing", str)
+}
+
+func TestTime02(t *testing.T){
+
+	shanghai, _ := time.LoadLocation("Asia/Shanghai") // 数据库中的时间
+	fmt.Println(shanghai)
+	newYork, _ := time.LoadLocation("America/New_York")
+	local, _ := time.LoadLocation("Local") // 服务器设置的时区
+
+	malta, _ := time.LoadLocation("Europe/Malta") // 马耳他时间
+	singapore, _ := time.LoadLocation("Singapore") // 新加坡时间
+
+
+	now := time.Now().In(shanghai)
+
+	FirstOpenTime := "13:04:00"
+	firstOpenTimeStr := now.Format("2006-01-02") + " " +  FirstOpenTime
+	firstOpenTime, _ := time.ParseInLocation("2006-01-02 15:04:05", firstOpenTimeStr, shanghai)
+
+	firstOpenTime1 := firstOpenTime.In(local)
+	firstOpenTime2 := firstOpenTime.In(malta)
+	firstOpenTime3 := firstOpenTime.In(newYork)
+	firstOpenTime4 := firstOpenTime.In(singapore)
+
+	spew.Dump("local-->", firstOpenTime1)
+	name1, offset1 := firstOpenTime1.Zone()
+	fmt.Println(name1, offset1/3600)
+	spew.Dump("malta-->", firstOpenTime2)
+	name, offset := firstOpenTime2.Zone()
+	fmt.Println(name, offset/3600)
+
+	spew.Dump("newYork-->", firstOpenTime3)
+	spew.Dump("singapore-->", firstOpenTime4)
+
+}
+
+func TestTime06(t *testing.T){
+	malta, _ := time.LoadLocation("Europe/Malta") // 马耳他时间
+	fmt.Println(time.Now().In(malta))
+}
+
+func TestTime03(t *testing.T){
+	//tt := "2020-03-08 01:00:00"
+	const timeFormat = "2006-01-02 15:04:05"
+
+	//loc, err := time.LoadLocation("America/New_York")
+	//loc, err := time.LoadLocation("UTC")
+	//log.Print(loc, err)
+	//
+	//testz , _ := time.ParseInLocation( timeFormat, tt,  loc)
+	//fmt.Println(testz)
+	//
+
+	//localNewYork := time.FixedZone("UTC", -4*60*60)
+	localNewYork := time.FixedZone("UTC", -4*60*60)
+	localNewYork = time.FixedZone("GMT", -4*60*60)
+	//localNewYork, _ = time.LoadLocation("AST")
+	fmt.Println(time.Now().Format(timeFormat))
+	fmt.Println(time.Now().In(localNewYork).Format(timeFormat))
+
+	localNewYork, _ = time.LoadLocation("America/New_York")
+	fmt.Println(time.Now().Format(timeFormat))
+	fmt.Println(time.Now().In(localNewYork).Format(TIME_LAYOUT))
+	//fmt.Println( testz , testz.UTC())
+	//testz = testz.Add( time.Minute )
+	//fmt.Println( testz , testz.UTC())
+	//testz = testz.Add( time.Minute )
+	//fmt.Println( testz , testz.UTC())
+}
+
+func TestColor(t *testing.T){
+	stdout := colorable.NewColorable(os.Stdout)
+	str := "cyan"
+	_, _ = fmt.Fprintf(stdout, "\x1b[36m%s\x1b[0m", str)
 }

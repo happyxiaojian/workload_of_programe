@@ -1,4 +1,4 @@
-package goFunTest
+package main
 
 /**
  * Definition for a binary tree node.

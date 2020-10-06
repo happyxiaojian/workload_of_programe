@@ -1,7 +1,10 @@
-package goFunTest
+package main
 
 import (
+	"flag"
+	"fmt"
 	"strings"
+	"time"
 )
 
 
@@ -56,3 +59,53 @@ func IsNo(val interface{}) bool {
 	return false
 }
 
+var d string
+
+func main(){
+	Init()
+	flag.Parse()
+
+	now := time.Now().Format("2006-01-02")
+
+
+	fmt.Println(now)
+	fmt.Println(d)
+
+	if d == "" {
+		d = now
+		tt, err := time.Parse("2006-01-02", d)
+		if err != nil{
+			d = now
+		}
+		fmt.Println(err)
+		printTime(tt)
+	}
+
+	tt2, _ := time.Parse("2006-01-02", "2020-09-26")
+	printTime(tt2)
+}
+
+func printTime(t time.Time){
+	fmt.Println(t)
+}
+
+var (
+	intflag int
+	boolflag bool
+	stringflag string
+)
+
+func Init() {
+	flag.StringVar(&d, "day", "", "input date like -day=2020-03-04")
+	flag.IntVar(&intflag, "intflag", 0, "int flag value")
+	flag.BoolVar(&boolflag, "boolflag", false, "bool flag value")
+	flag.StringVar(&stringflag, "stringflag", "default", "string flag value")
+}
+
+func main02() {
+	flag.Parse()
+
+	fmt.Println("int flag:", intflag)
+	fmt.Println("bool flag:", boolflag)
+	fmt.Println("string flag:", stringflag)
+}
