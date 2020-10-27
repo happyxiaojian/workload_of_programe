@@ -61,9 +61,49 @@ func Name(srv *Server){
 	srv.Name = "landon"
 }
 
+//======================= 观察者模式 =======================
 
+type Observer interface {
+	Update(subject *Subject)
+}
 
+type Subject struct {
+	Observers []Observer
+	context string
+}
 
+func NewSubject(cs string)(s *Subject){
+	return &Subject{
+		Observers: make([]Observer, 0),
+	}
+}
 
+func (s *Subject)Attach(o Observer){
+	s.Observers = append(s.Observers, o)
+}
 
+func (s *Subject)Remove(o Observer)bool{
+	for i, j := range s.Observers {
+		if j == o {
+			s.Observers = append(s.Observers[:i], s.Observers[i+1:]...)
+			return true
+		}
+	}
+	return false
+}
+
+func (s *Subject)Notify(){
+	for _, i := range s.Observers {
+		i.Update(s)
+	}
+}
+
+func (s *Subject)UpdateContext(c string){
+	s.context = c
+	s.Notify()
+}
+
+type Reader struct {
+	name string
+}
 
