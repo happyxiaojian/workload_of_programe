@@ -309,6 +309,8 @@ commit是可以的，但是这之后我又把它merge到了develop分支这
 	git grep -e '#define' --and -e SORT_DIRENT
 	git gc
 	git fsck
+	
+	1
 
 
 
