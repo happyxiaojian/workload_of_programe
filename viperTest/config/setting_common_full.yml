@@ -1,0 +1,115 @@
+## 版本库配置模板全集，禁止直接使用
+## 配置值分类合理、命名准确，必须添加注释方便环境部署运维理解
+## 尽量复用公共，按照分类放置，拿不定主意需要评审
+## import "lottery-torch/tools/config"
+## 示例 config.BackendConfig.Port config.ApplicationConfig.Host
+settings:
+  # config.ApplicationConfig.Port
+  application: # 公共应用
+    mode: dev       # full属于版本库 local本地开发环境 dev开发环境 test测试环境 pre预发布环境 prod线上环境
+    debug: true     # 调试开关
+    host: 0.0.0.0   # 服务器ip，默认使用 0.0.0.0
+    name: torch     # 服务名称
+    port: 8010      # 服务端口号
+    readtimeout: 1
+    writertimeout: 2
+
+    # 应用公共配置
+    uploadDir: /data/static/
+    logpath: temp/logs/
+
+    # 私有彩票服务配置
+    chatRoomApiAddr: 127.0.0.1:8811/api/v1
+    # 私彩开奖数据，jobs_collection使用以下地址，以下地址服务由private_frontend提供
+    # 以下服务属于private_frontend
+    collectionPriHappyUrl: http://glad-lottery.org
+    collectionPriSpeedUrl: http://www.lightspeed-lottery.org
+    collectionPriLuckyUrl: http://119.8.104.94:8805
+    collectionPriTopSpeedUrl : http://172.31.5.219:8805
+    collectionPriUGUrl  : http://119.8.104.94:8806
+    packShell: /data/shell/pack.sh
+
+    # 官方彩票采集 collection
+    Domain : http://api.caipiaokong.cn/lottery/
+    Domain_Content : 彩票控的域名
+    Format: json
+    Uid": 1431462
+    Uid_Content: 彩票控的uid
+    Token: 39851dbb00ca57c11e502881bcc5aedc5f8f3d48
+    Token_Content: "彩票控对应的token(md5)"
+    CPURL:
+    - http://main.caipiaoapi.com:7373/hall/nodeService/api_request?uid=791&api=apiGameList&md5=c64fdee4b61438c20634abf6080a2a01&time=1569578172
+    - http://api.caipiaoapi.com/hall/nodeService/api_request?uid=791&api=apiGameList&md5=c64fdee4b61438c20634abf6080a2a01&time=1569578172
+    - http://api.jiekouapi.com/hall/nodeService/api_request?uid=791&api=apiGameList&md5=c64fdee4b61438c20634abf6080a2a01&time=1569578172
+    ApiLotteryUrl: http://a.apilottery.com/api/
+    ApiLotteryToken: f655391f85daddd3de7c540fd79ea52b
+
+    # gameapi
+    # config.ApplicationConfig.allWallets
+    all_wallets: http://18.162.243.219:96/internal-zonghe/backend/show-balance
+    refresh_balance: http://18.162.243.219:96/internal-zonghe/backend/show-balance
+    p_2_m_wallet: http://18.162.243.219:96/internal-zonghe/backend/one-recycle
+    all_2_m_wallet: http://18.162.243.219:96/internal-zonghe/backend/one-recycle
+    check_order: http://18.162.243.219:96/internal-zonghe/backend/check-transfer
+
+    # chat聊天
+    chatRoomNodeId: 1 # 房间节点
+    chatServerAddr: 127.0.0.1:8810 # 管理后台API
+    chatRooms: [1,2,3,4] # 房间节点的ID
+
+  # config.FrontendConfig.Port
+  frontend: # 前台配置
+    port: 8030  # 前台端口
+  backend:      # 后台 和 gameapi 配置
+    port: 8040  # 前台端口
+  jobs:         # Crontab balances:8040
+    # jobs_balances   http服务，投注结算，private_backend通过数据库lottery_private.tb_platform去请求jobs_balances
+    # jobs_collection jobs服务，通过配置文件的url，拉取奖源信息先开奖放入MQ，jobs_balances消费MQ进行结算
+    # jobs_issue      jobs服务，生成三方彩票期数写入数据库
+    # jobs_task       jobs服务，各种报表
+    # jobs_collection奖源 -》 先开奖在存入MQ -》jobs_balances消费MQ，按照jobs_issue期数，开奖
+    port: 8050
+  private:  # 私有彩票
+    frontendPort: 8060  # http服务，私彩官网前台，提供奖源接口给jobs_collection
+    backendPort:  8070  # 只能开一个进程， http和jobs服务，private_backend生成私彩期数写入数据库，开奖依赖各个平台 job_balances在数据库（lottery_private.tb_platform）的配置信息
+  logger:   # 日志
+    path:   ./temp/logs # 日志存放路径
+    stdout: true      # 控制台日志
+    level:  all       # 日志等级
+    enabledbus: true  # 业务日志开关
+    enabledreq: true  # 请求日志开关
+    enableddb:  true  # 数据库日志开关 dev模式，将自动开启
+
+  database: # 数据库
+    driver: mysql      # 数据库类型 mysql，sqlite3， postgres
+    maxIdleConns: 20
+    maxOpenConns: 100
+
+    # 主库
+    source: lottery_pre:1q2w3E4R.123abc!@#@tcp(18.162.243.219:3306)/lottery_user?charset=utf8&parseTime=True&loc=Local&timeout=1000ms
+    user:
+    - lottery_pre:1q2w3E4R.123abc!@#@tcp(18.162.243.219:3306)/lottery_user?charset=utf8&parseTime=True&loc=Local&timeout=1000ms
+    - lottery_pre:1q2w3E4R.123abc!@#@tcp(18.162.243.219:3306)/lottery_user?charset=utf8&parseTime=True&loc=Local&timeout=1000ms
+    merchant:
+    - lottery_pre:1q2w3E4R.123abc!@#@tcp(18.162.243.219:3306)/lottery_merchant?charset=utf8&parseTime=True&loc=Local&timeout=1000ms
+    lottery:
+    - lottery_pre:1q2w3E4R.123abc!@#@tcp(18.162.243.219:3306)/lottery_ticket?charset=utf8&parseTime=True&loc=Local&timeout=1000ms
+    pay:
+    - lottery_pre:1q2w3E4R.123abc!@#@tcp(18.162.243.219:3306)/lottery_pay?charset=utf8&parseTime=True&loc=Local&timeout=1000ms
+    chat:
+    - lottery_pre:1q2w3E4R.123abc!@#@tcp(18.162.243.219:3306)/lottery_chatroom?charset=utf8&parseTime=True&loc=Local&timeout=1000ms
+    stat:
+    - lottery_pre:1q2w3E4R.123abc!@#@tcp(18.162.243.219:3306)/lottery_stat?charset=utf8&parseTime=True&loc=Local&timeout=1000ms
+    bet:
+    - lottery_pre:1q2w3E4R.123abc!@#@tcp(18.162.243.219:3306)/lottery_bet?charset=utf8&parseTime=True&loc=Local&timeout=1000ms
+    private:
+    - lottery_pre:1q2w3E4R.123abc!@#@tcp(18.162.243.219:3306)/lottery_private?charset=utf8&parseTime=True&loc=Local&timeout=1000ms
+
+  saas:  # 缓存、消息队列、云存储等服务
+    redisAddr: 18.162.243.219:6379
+    redisPasswd:
+    redisDbnum: 0
+    redisProto: tcp
+    redisKeypairs: secret
+    rabbitmqQmqp: amqp://lottery:AV~UApq9ZV@18.162.243.219:5672/
+    oosToken:     K#dGy&0$fWnsVH&lK2gjISTDFzW8vz#5

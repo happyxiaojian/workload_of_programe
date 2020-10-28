@@ -2,8 +2,10 @@ package main
 
 import (
 	"fmt"
+	"github.com/davecgh/go-spew/spew"
 	"log"
 	"time"
+	"workload_of_programe/tools/config"
 
 	"github.com/spf13/viper"
 )
@@ -91,7 +93,7 @@ func main03() {
 	}
 }
 
-func main(){
+func main04(){
 	viper.SetConfigName("config")
 	viper.SetConfigType("toml")
 	viper.AddConfigPath(".")
@@ -119,4 +121,24 @@ func main(){
 
 	select {
 	}
+}
+
+func main(){
+
+	configYml, _ := config.GetConfigAbsolutePath("setting_common_full.yml", "viperTest")
+
+	fmt.Println(configYml)
+
+	config.Setup(configYml, "yaml")
+
+
+
+	spew.Dump(config.ApplicationConfig)
+	spew.Dump(config.DatabaseConfig)
+	spew.Dump(config.GenConfig)
+	spew.Dump(config.FrontendConfig)
+	spew.Dump(config.BackendConfig)
+	spew.Dump(config.PrivateGameConfig)
+	spew.Dump(config.JobsConfig)
+
 }
