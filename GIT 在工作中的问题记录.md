@@ -311,6 +311,8 @@ commit是可以的，但是这之后我又把它merge到了develop分支这
 	git fsck
 	
 	1
+	
+	2
 
 
 
