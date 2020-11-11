@@ -285,3 +285,42 @@ func TestColor(t *testing.T){
 	str := "cyan"
 	_, _ = fmt.Fprintf(stdout, "\x1b[36m%s\x1b[0m", str)
 }
+
+
+func TestPanic(t *testing.T){
+	user := GetPlayer()
+
+	fmt.Println(user.Flag)
+
+	fmt.Println("hello")
+}
+
+func GetPlayer()*Player{
+	return nil
+}
+
+func TestOR(t *testing.T){
+	user := GetPlayer()
+	if user != nil || user.Flag == 0 {
+		fmt.Println("hello world")
+	}
+}
+
+
+func TestPanicDefer(t *testing.T){
+	defer func(){
+		if err := recover(); err != nil{
+			fmt.Println("world")
+			fmt.Println(err)
+			fmt.Println("hello")
+
+		}
+	}()
+	defer fmt.Println("11111111111111111111111")
+	defer fmt.Println("22222222222222222222222")
+	panic("4444444444444444444444444444")
+	defer fmt.Println("33333333333333333333333")
+}
+
+
+

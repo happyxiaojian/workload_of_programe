@@ -12,6 +12,7 @@ type Server struct {
 	listener net.Listener
 	Name string
 	timeout time.Duration
+	UID int
 }
 
 
@@ -37,7 +38,7 @@ func main(){
 
 	spew.Dump(srv)
 
-	srv2, _ := NewServer(":8787", Timeout, Tls, Name)
+	srv2, _ := NewServer(":8787", Timeout, Tls, Name, Uid)
 
 	fmt.Println("==================================")
 	spew.Dump(srv2)
@@ -59,6 +60,10 @@ func loadTLSConfig() tls.Config {
 
 func Name(srv *Server){
 	srv.Name = "landon"
+}
+
+func Uid(srv *Server){
+	srv.UID = 1123
 }
 
 //======================= 观察者模式 =======================

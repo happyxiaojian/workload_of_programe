@@ -3,6 +3,9 @@ package main
 import (
 	"fmt"
 	"github.com/davecgh/go-spew/spew"
+	"log"
+	"strconv"
+	"strings"
 	"testing"
 	"time"
 )
@@ -78,3 +81,50 @@ func TestTimeParse02(t *testing.T){
 }
 
 
+func TestTimeParse04(t *testing.T){
+	date := "20201022"
+
+	dataTime, _ := time.Parse("20060102", date)
+
+	dayStart := dataTime.Format("2006-01-02") + " 00:00:00"
+
+	dayEnd := dataTime.Format("2006-01-02") + " 23:59:59"
+
+	spew.Dump(dayStart, dayEnd)
+}
+
+
+func TestTimeParse05(t *testing.T){
+	date := "2020-11-05T06:27:00.130Z"
+
+	dataTime, _ := time.ParseInLocation(time.RFC3339, date, time.UTC)
+	fmt.Println(dataTime)
+	dataTime, _ = time.ParseInLocation(time.RFC3339Nano, date, time.UTC)
+
+	fmt.Println(dataTime)
+}
+
+
+func TestTimeParse06(t *testing.T){
+	// 年份转换的时候 [2020]350 --> [2021]001
+	var LastIssue uint64 = 2019350 + 1
+	var err error
+	issue := fmt.Sprintf("%d", LastIssue)
+	nowYear := strconv.Itoa(time.Now().Year())
+	if !strings.Contains(issue, nowYear) {
+		issue = strings.ReplaceAll(issue, issue[:4], nowYear)
+		issue = fmt.Sprintf("%s001", nowYear)
+		if LastIssue, err = strconv.ParseUint(issue, 10, 64); err != nil{
+			log.Printf("load_LHC_Impl strconv.ParseUint(v=\"%v\") err:%v\n", issue, err.Error())
+		}
+	}
+	fmt.Println(LastIssue)
+}
+
+
+func TestTimeParse07(t *testing.T){
+	year := "2020"
+	n := 121
+	ss := fmt.Sprintf("%s%03d", year, n)
+	fmt.Println(ss)
+}

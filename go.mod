@@ -3,6 +3,8 @@ module workload_of_programe
 go 1.14
 
 require (
+	github.com/Chain-Zhang/pinyin v0.1.3
+	github.com/Xuanwo/go-locale v1.0.0
 	github.com/davecgh/go-spew v1.1.1
 	github.com/fatih/color v1.7.0
 	github.com/go-playground/validator/v10 v10.3.0
